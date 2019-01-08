@@ -172,10 +172,6 @@ module cabinet (dp,u,screw_bottom_front,round_peg,screw_side_front){
        
     }
 
-
-
-
-
 module box(dp,u,screw_bottom_front,round_peg,screw_side_front){
     difference(){
         translate([20,0,gauge]){
@@ -291,11 +287,8 @@ module lid(dp,u,screw_front,screw_back){
      chimney();
 
     
-}        
 }
-
-
-
+}
 
 module screw(){
     cylinder(r1=screw_head/2, r2=screw_dia/2, h=screw_head_height);
@@ -528,8 +521,11 @@ module frontplate(u,square_hole,round_hole,round_peg,screw_side_front,screw_top,
 
 
 
-
-
+module blinder(u){
+    difference(){
+        baseplate(u);
+    } 
+}
 
 
 
@@ -554,22 +550,3 @@ module baseplate(u,handle){
     }  
 }    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
