@@ -17,9 +17,6 @@ screw_length      = 15;
 nut_4mm           = 8.1; 
 slip              = 0.35;
 
-
-
-
 module chimney() {    
 for(i=[0:8:80]){
     echo(i);

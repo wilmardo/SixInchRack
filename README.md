@@ -1,6 +1,6 @@
 # SixInchRack
 
-This is a project for 6" cabinets and rack enclusures. 
+This is a project for 6" cabinets and rack enclusures.
 
 For pictures have a look here:
  - http://www.thingiverse.com/thing:1957436
@@ -12,9 +12,13 @@ The project is a scaled down version of the familiar 19" rack standard, with the
  - The front plate is 155mm wide
  - The inside distance between the two vertical profiles is 115mm
  - The ears protrude 20mm
- 
+
 It is designed for the 20x20 extruded aluminium profile, but a profile can also be printed.
 
+Screws:
+ - M4x6 for the nutless trap
+ - M6x16 for the top and bottom
+ - M3x12 for the cabinet
 
 ##I want to print a simple blank six inch cabinet
 Go Thingiverse and locate this build: http://www.thingiverse.com/thing:1957436
@@ -59,18 +63,18 @@ The deafult modules obviously does not support everything you need, but should g
 ```java
 square_hole        = [];
 round_hole         = [[65 ,7.5, 3.1],[69.5 ,7.5, 3.1]];
-round_peg          = [];   
+round_peg          = [];
 screw_side_front   = [];
 screw_top          = [36];
 screw_bottom_front = [36];
-units              = 2; 
+units              = 2;
 frontplate(units,square_hole,round_hole,round_peg,screw_side_front,screw_top,screw_bottom_front);
 ```
 
 ###Handle###
 ```java
 units              = 2;
-lay_flat_for_print = true;   
+lay_flat_for_print = true;
 handle(units,lay_flat_for_print);
 ```
 
@@ -95,11 +99,11 @@ depth = 98;
 units = 2;
 screw_front = [36];//mm
 screw_back  = [36];//mm
-lid(98,2,screw_front,screw_back);        
+lid(98,2,screw_front,screw_back);
 ```
 
 
-###Back plate   
+###Back plate
 ```java
 square_hole  = [[37 ,3, 17, 15] , [57 ,4, 15, 16] , [75,4,15,16] ];
 round_hole   = [[6,5,6],[6,1,6], [24,3.5,3.5],[24,1.2,3.5]  ,[30,3.5,3.5],[30,1.2,3.5]];

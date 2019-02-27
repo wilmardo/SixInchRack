@@ -5,10 +5,10 @@ include<../sixinch_library.scad>
  // Rock64                    //
 ///////////////////////////////
 
-print_frontplate_sml = false;
-print_handle_sml     = false;
-print_cabinet_sml    = false;
-print_lid            = false;
+print_frontplate_sml = true;
+print_handle_sml     = true;
+print_cabinet_sml    = true;
+print_lid            = true;
 print_rear           = true;
 
 if(print_frontplate_sml){ // Frontplate //

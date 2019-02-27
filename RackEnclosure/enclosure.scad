@@ -4,12 +4,12 @@
 
 $fn = 50*1;
 
-part = "f"; // [a:Extrusion no holes,b:Extrusion front holes,c:Extrusion front and side holes,d:End open,e:End grid,f:End chimney,g:End closed,h:Nut-less Trap,i:Panel,j:Panel with handle,k:Handle]
+part = "h"; // [a:Extrusion no holes,b:Extrusion front holes,c:Extrusion front and side holes,d:End open,e:End grid,f:End chimney,g:End closed,h:Nut-less Trap,i:Panel,j:Panel with handle,k:Handle]
 
-Units = 3;
+Units = 12;
 
 //Hole size for 4mm screws or freedom unit equivalent
-Four_mm_screw = 3.8;
+Four_mm_screw = 3.5;
 
 //Hole size for 5mm screws or freedom unit equivalent
 Five_mm_screw = 4.8;
