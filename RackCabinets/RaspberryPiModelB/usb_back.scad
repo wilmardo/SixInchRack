@@ -20,7 +20,6 @@ if(print_frontplate_sml){ // Frontplate //
     screw_bottom_front = [36];
     units              = 2; 
     frontplate(units,square_hole,round_hole,round_peg,screw_side_front,screw_top,screw_bottom_front);
-
 }
 
 if(print_handle_sml){ // Handle // 
@@ -59,13 +58,3 @@ if(print_rear){  // Back plate //
     units        = 2;
     back_plate(units,depth,screw_top,screw_bottom,screw_side,square_hole,round_hole);
 }  
- 
-
-
-
-
-
-
-
-
-
