@@ -18,23 +18,18 @@ nut_4mm           = 8.1;
 slip              = 0.35;
 
 module chimney() {
-for(i=[0:8:80]){
-    echo(i);
-    translate([20 + (width-80)/2  +i,-1,20]){
-        minkowski(){
-            cube([0.01,200,30]);
-            sphere(d=2); // TODO: lookup why h=1 was passed
+    for(i=[0:8:80]){
+        echo(i);
+        translate([20 + (width-80)/2  +i,-1,20]){
+            minkowski(){
+                cube([0.01,200,30]);
+                sphere(d=2); // TODO: lookup why h=1 was passed
+            }
         }
     }
 }
-}
 
-
-
-
-
- module back_plate(u,dp,screw_top,screw_bottom,screw_side,square_hole,round_hole){
-
+module back_plate(u,dp,screw_top,screw_bottom,screw_side,square_hole,round_hole){
      difference(){
         union(){
             translate([20+gauge_box+slip,gauge_box+slip,gauge+dp-gauge_box]){
@@ -51,46 +46,42 @@ for(i=[0:8:80]){
             translate([x+20+gauge_box,y+gauge_box,dp-1]){cube([w,h,gauge+2]);}
         }
 
-    //Round holes
-    if(len(round_hole)>0){
-        for(i=[0:len(round_hole)-1]){
-            x = round_hole[i][0];
-            y = round_hole[i][1];
-            dia = round_hole[i][2];
-            translate([20+gauge_box+x,gauge_box+y,dp-4]){  cylinder(d=dia,h=10); }
+        //Round holes
+        if(len(round_hole)>0){
+            for(i=[0:len(round_hole)-1]){
+                x = round_hole[i][0];
+                y = round_hole[i][1];
+                dia = round_hole[i][2];
+                translate([20+gauge_box+x,gauge_box+y,dp-4]){  cylinder(d=dia,h=10); }
+            }
         }
-    }
 
 
-    //Screw holes
-    if(len(screw_top)>0){
-        for(i=[0:len(screw_top)-1]){
-            p = screw_top[i];
-            translate([p,unit*u-gauge_box-4,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
-            translate([sixinch-p,unit*u-gauge_box-4,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
+        //Screw holes
+        if(len(screw_top)>0){
+            for(i=[0:len(screw_top)-1]){
+                p = screw_top[i];
+                translate([p,unit*u-gauge_box-4,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
+                translate([sixinch-p,unit*u-gauge_box-4,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
+            }
         }
-    }
-    if(len(screw_bottom)>0){
-        for(i=[0:len(screw_bottom)-1]){
-            p = screw_bottom[i];
-            translate([p,gauge_box+4     ,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
-            translate([sixinch-p,    gauge_box+4    ,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
+        if(len(screw_bottom)>0){
+            for(i=[0:len(screw_bottom)-1]){
+                p = screw_bottom[i];
+                translate([p,gauge_box+4     ,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
+                translate([sixinch-p,    gauge_box+4    ,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
+            }
         }
-    }
 
-    if(len(screw_side)>0){
-        for(i=[0:len(screw_side)-1]){
-            p = screw_side[i];
-            translate([sixinch-20-6,    unit*p    ,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
-            translate([20+6,    unit*p    ,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
+        if(len(screw_side)>0){
+            for(i=[0:len(screw_side)-1]){
+                p = screw_side[i];
+                translate([sixinch-20-6,    unit*p    ,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
+                translate([20+6,    unit*p    ,gauge+dp+0.1]){rotate([0,180,0]){screw();}}
+            }
         }
     }
 }
-}
-
-
-
-
 
 module peg(x,y,od,id,he){
     translate([x,y,0]){
@@ -102,8 +93,6 @@ module peg(x,y,od,id,he){
         }
     }
 }
-
-
 
 module screwtrap(){
     difference(){
@@ -123,10 +112,6 @@ module screwtrap(){
     }
 }
 
-
-
-
-
 module nuttrap(){
     difference(){
         linear_extrude(10){
@@ -144,13 +129,6 @@ module nuttrap(){
         }
     }
 }
-
-
-
-
-
-
-
 
 module cabinet (dp,u,screw_bottom_front,round_peg,screw_side_front){
     difference(){
@@ -242,49 +220,45 @@ module box(dp,u,screw_bottom_front,round_peg,screw_side_front){
     }
 }
 
-
 module lid(dp,u,screw_front,screw_back){
-
     difference(){
-    union(){
-        if(len(screw_front)>0){
-            for(i=[0:len(screw_front)-1]){
-                p = screw_front[i];
-                translate([p-5,unit*u-gauge_box,gauge]){rotate([0,-90,180]){screwtrap();}}
-                translate([sixinch-p-5,unit*u-gauge_box,gauge]){rotate([0,-90,180]){screwtrap();}}
+        union(){
+            if(len(screw_front)>0){
+                for(i=[0:len(screw_front)-1]){
+                    p = screw_front[i];
+                    translate([p-5,unit*u-gauge_box,gauge]){rotate([0,-90,180]){screwtrap();}}
+                    translate([sixinch-p-5,unit*u-gauge_box,gauge]){rotate([0,-90,180]){screwtrap();}}
+                }
+            }
+            if(len(screw_back)>0){
+                for(i=[0:len(screw_back)-1]){
+                    p = screw_back[i];
+                    translate([p+5,unit*u-gauge_box,gauge+dp-gauge_box]){rotate([0,90,180]){screwtrap();}}
+                    translate([sixinch-p+5,unit*u-gauge_box,gauge+dp-gauge_box]){rotate([0,90,180]){screwtrap();}}
+                }
+            }
+
+            //lid
+            translate([20+gauge_box+slip,u*unit-gauge_box,gauge]){
+                cube([115-gauge_box*2-slip*2,gauge_box,dp]);
+            }
+            //back rest
+            translate([sixinch/2-40,u*unit-gauge_box-2,gauge+dp-2-gauge_box]){
+                cube([80,2,2]);
             }
         }
-        if(len(screw_back)>0){
-            for(i=[0:len(screw_back)-1]){
-                p = screw_back[i];
-                translate([p+5,unit*u-gauge_box,gauge+dp-gauge_box]){rotate([0,90,180]){screwtrap();}}
-                translate([sixinch-p+5,unit*u-gauge_box,gauge+dp-gauge_box]){rotate([0,90,180]){screwtrap();}}
-            }
-        }
 
-        //lid
-        translate([20+gauge_box+slip,u*unit-gauge_box,gauge]){
-            cube([115-gauge_box*2-slip*2,gauge_box,dp]);
+        //Negative
+        translate([20+gauge_box+4,unit*u+0.01  ,gauge+10+5]){rotate([90,0,0]){screw();}}
+        translate([20+gauge_box+4,unit*u+0.01  ,gauge+dp-10-10+5]){rotate([90,0,0]){screw();}}
+        translate([sixinch-20-gauge_box-4,unit*u+0.01   ,gauge+10+10-5]){rotate([90,0,0]){screw();}}
+        translate([sixinch-20-gauge_box-4,unit*u +0.01  ,gauge+dp-10-10+10-5]){rotate([90,0,0]){screw();}}
+        if(dp>90){
+            translate([sixinch-20-gauge_box-4,unit*u+0.01   ,gauge+dp/2-5+10-5]){rotate([90,0,0]){screw();}}
+            translate([20+gauge_box+4,unit*u+0.01   ,gauge+dp/2-5+5]){rotate([90,0,0]){screw();}}
         }
-        //back rest
-        translate([sixinch/2-40,u*unit-gauge_box-2,gauge+dp-2-gauge_box]){
-            cube([80,2,2]);
-        }
+        chimney();
     }
-
-    //Negative
-    translate([20+gauge_box+4,unit*u+0.01  ,gauge+10+5]){rotate([90,0,0]){screw();}}
-    translate([20+gauge_box+4,unit*u+0.01  ,gauge+dp-10-10+5]){rotate([90,0,0]){screw();}}
-    translate([sixinch-20-gauge_box-4,unit*u+0.01   ,gauge+10+10-5]){rotate([90,0,0]){screw();}}
-    translate([sixinch-20-gauge_box-4,unit*u +0.01  ,gauge+dp-10-10+10-5]){rotate([90,0,0]){screw();}}
-    if(dp>90){
-        translate([sixinch-20-gauge_box-4,unit*u+0.01   ,gauge+dp/2-5+10-5]){rotate([90,0,0]){screw();}}
-        translate([20+gauge_box+4,unit*u+0.01   ,gauge+dp/2-5+5]){rotate([90,0,0]){screw();}}
-    }
-     chimney();
-
-
-}
 }
 
 module screw(){
@@ -292,7 +266,6 @@ module screw(){
     cylinder(r=screw_dia/2, h=40);
     translate([0,0,-0.99]){cylinder(r=screw_head/2, h=1);}
 }
-
 
 module frontholes(u,screw_top,screw_bottom_front,screw_side_front){
     if(len(screw_bottom_front)>0){
@@ -318,22 +291,17 @@ module frontholes(u,screw_top,screw_bottom_front,screw_side_front){
     }
 }
 
-
-
-
-
-module handle(u,print){
-
-    if(print){
+module handle(u,print) {
+    if(print) {
         translate([16,-u*unit,8]){rotate([0,90,0]){handle1(u);}}
         translate([0,-u*unit,8]){rotate([0,90,0]){handle1(u);}}
-    }else{
+    } else{
         translate([22,2,0]){rotate([0,180,0]){handle1(u);}}
         translate([sixinch-14,2,0]){rotate([0,180,0]){handle1(u);}}
     }
 }
 
-module handle1(u){
+module handle1(u) {
     difference(){
         handle2(8,u*unit-4,10,3);
         translate([-1,5,-1]){handle2(10,u*unit-10-4,6,3);}
@@ -342,7 +310,6 @@ module handle1(u){
         translate([4,u*unit-4-2.5,-1]){ cylinder(r=screw_hole/2,h=9);}
     }
 }
-
 
 module handle2(w,h,d,ra){
     translate([0,ra,d-ra]){
@@ -361,18 +328,14 @@ module handle2(w,h,d,ra){
     cube([w,h,d-ra]);
 }
 
-
-
-
-
 module insideprofile(l){
     difference(){
         union(){
             translate([7.6,10,0]){cube([4.8,10,l]);}
             translate([0,7.6,0]){cube([20,4.8,l]);}
 
-            translate([6.5,10-2.1,0]){cube([7   ,10,l]);}
-            translate([2.1,6.5,0]){cube([15.8,7   ,l]);}
+            translate([6.5,10-2.1,0]){cube([7, 10,l]);}
+            translate([2.1,6.5,0]){cube([15.8, 7, l]);}
         }
         translate([4,4,-1]){
             cube([12,12,l+2]);
@@ -386,8 +349,6 @@ module insideprofile(l){
         }
     }
 }
-
-
 
 module rightbottomplate(t){
     difference(){
@@ -404,30 +365,23 @@ module leftbottomplate(t){
         translate([(sixinch+20)/2,-1,-1]){
             cube([(sixinch+20)/2+1,sixinch+20+2,t+2]);
         }
-       # translate([10,10,-1]){cylinder(r=2.5,h=base+2);}
+        // translate([10,10,-1]){cylinder(r=2.5,h=base+2);}
         translate([10,sixinch+20-10,-1]){cylinder(r=2.5,h=base+2);}
-
-
         translate([(sixinch+20)/2-20,-1,2.1]){cube([40,sixinch+20+2,2]);}
-
         }
 
     translate([0,0,base]){insideprofile(10);}
     rotate([0,0,180]){translate([-20,-sixinch-20,base]){insideprofile(10);}}
 }
 
-
 module bottomplate(t){
-translate([1,1,0]){
-    minkowski(){
-        cube([sixinch+20-2,sixinch+20-2,t-1]);
-        cylinder(r=1,h=1);
+    translate([1,1,0]){
+        minkowski(){
+            cube([sixinch+20-2,sixinch+20-2,t-1]);
+            cylinder(r=1,h=1);
+        }
     }
 }
-}
-
-
-
 
 module frontplate(u,square_hole,round_hole,round_peg,screw_side_front,screw_top,screw_bottom_front){
 
@@ -511,12 +465,7 @@ module frontplate(u,square_hole,round_hole,round_peg,screw_side_front,screw_top,
         translate([20+width*0.25,gauge_box,0]){  cube([width*0.5,1,1.5]);  }
         translate([20+width*0.25,unit*u-1-gauge_box,0]){  cube([width*0.5,1,1.5]);  }
     }
-
-
-
-    }
-
-
+}
 
 module blinder(u){
     difference(){
@@ -524,26 +473,24 @@ module blinder(u){
     }
 }
 
-
-
 module baseplate(u,handle){
     difference(){
-    union(){
-        translate([1.25,1.25,1.25]){
-            minkowski(){
-                cube([sixinch-2.5,unit*u-2.5,gauge-2.5]);
-                sphere(r=1.25);
+        union(){
+            translate([1.25,1.25,1.25]){
+                minkowski(){
+                    cube([sixinch-2.5,unit*u-2.5,gauge-2.5]);
+                    sphere(r=1.25);
+                }
             }
         }
+        //Rack mount holes
+        translate([10-0.5,unit/2,-gauge/2])                 {cylinder(r=2.3,gauge*2);}
+        translate([sixinch-10+0.5,unit/2,-gauge/2])         {cylinder(r=2.3,gauge*2);}
+        translate([10-0.5,u*unit-(unit/2),-gauge/2])        {cylinder(r=2.3,gauge*2);}
+        translate([sixinch-10+0.5,u*unit-(unit/2),-gauge/2]){cylinder(r=2.3,gauge*2);}
+        if(u>=5){
+            translate([10-0.5,(u*unit)/2,-gauge/2])         {cylinder(r=2.3,gauge*2);}
+            translate([sixinch-10+0.5,(u*unit)/2,-gauge/2]) {cylinder(r=2.3,gauge*2);}
+        }
     }
-    //Rack mount holes
-    translate([10-0.5,unit/2,-gauge/2])                 {cylinder(r=2.3,gauge*2);}
-    translate([sixinch-10+0.5,unit/2,-gauge/2])         {cylinder(r=2.3,gauge*2);}
-    translate([10-0.5,u*unit-(unit/2),-gauge/2])        {cylinder(r=2.3,gauge*2);}
-    translate([sixinch-10+0.5,u*unit-(unit/2),-gauge/2]){cylinder(r=2.3,gauge*2);}
-    if(u>=5){
-        translate([10-0.5,(u*unit)/2,-gauge/2])         {cylinder(r=2.3,gauge*2);}
-        translate([sixinch-10+0.5,(u*unit)/2,-gauge/2]) {cylinder(r=2.3,gauge*2);}
-    }
-}
 }
