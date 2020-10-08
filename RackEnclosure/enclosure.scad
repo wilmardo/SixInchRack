@@ -1,6 +1,6 @@
 // This file contains all the parts for a rack enclosure
 // It has the format required for a customizable project on Thingiverse
-// Note: Calculated variables does not show up in the customizer, hence the *1; 
+// Note: Calculated variables does not show up in the customizer, hence the *1;
 
 $fn = 50*1;
 
@@ -15,7 +15,7 @@ Four_mm_screw = 3.5;
 Five_mm_screw = 4.8;
 
 //Constants, do not change !
-sixinch   = 155*1;       // cm = 6"  
+sixinch   = 155*1;       // cm = 6"
 width     = 155-20-20;   // 11.5cm between rails
 unit      = (44.5/19)*6; // 1U = 14.05cm
 gauge     = 3*1;
@@ -51,23 +51,17 @@ module go(){
     }
 }
 
-
-
-
-module chimney() {    
+module chimney() {
     for(i=[0:8:80]){
         echo(i);
         translate([20 + (width-80)/2  +i,-1,20]){
             minkowski(){
-                cube([0.01,50,30]);    
-                sphere(d=2,h=1);        
+                cube([0.01,50,30]);
+                sphere(d=2,h=1);
             }
         }
     }
 }
-
-
-
 
 // Nut-less Trap
 module trap(u){
@@ -75,7 +69,7 @@ module trap(u){
         union(){
             translate([-2.4,0,4]){
                 cube([4.8,unit*u,1.5]);
-            }    
+            }
             translate([-2.4,unit*u,0]){
                 rotate([90,0,0]){
                     linear_extrude(unit*u){
@@ -83,74 +77,70 @@ module trap(u){
                     }
                 }
             }
-        }                        
+        }
         for(i=[1:u]){
             translate([0,unit*i-unit/2,-1]){
                 cylinder(d=Four_mm_screw,h=10);
-            }                       
+            }
         }
     }
 }
-
-
 
 //0: open
 //1: grid
 //2: chimney
 //3: closed
-module rack_end(type){    
-    width = sixinch+1; 
+module rack_end(type){
+    width = sixinch+1;
     difference(){
         union(){
             translate([1.25,1.25,1.25]){
                 minkowski(){
-                    w = width-2.5;            
-                    cube([w, w, gauge-2.5]);                        
+                    w = width-2.5;
+                    cube([w, w, gauge-2.5]);
                     sphere(r=1.25);
                 }
             }
         }
         if(type==0 || type==1){
-            translate([20,20,-1]){ cube([width-40,width-40,gauge+2]);}  
+            translate([20,20,-1]){ cube([width-40,width-40,gauge+2]);}
         }
-    
+
         translate([10,10,-0.1])                { cylinder(d=5,h=10); cylinder(d1=10,d2=6,h=3.5);}
         translate([width-10,10,-0.1])        { cylinder(d=5,h=10); cylinder(d1=10,d2=6,h=3.5);}
         translate([10,width-10,-0.1])        { cylinder(d=5,h=10); cylinder(d1=10,d2=6,h=3.5);}
-        translate([width-10,width-10,-0.1]){ cylinder(d=5,h=10); cylinder(d1=10,d2=6,h=3.5);}  
-  
+        translate([width-10,width-10,-0.1]){ cylinder(d=5,h=10); cylinder(d1=10,d2=6,h=3.5);}
+
         rotate([-90,0,0]){
             if(type==2){
                 translate([0,-5,0]){chimney();}
                 translate([0,-5,(width-29)/2]){chimney();}
                 translate([0,-5,width-29]){chimney();}
             }
-        }    
-    }  
+        }
+    }
     if(type==1){
         intersection(){
             union(){
                 sz=8;
                 grid = 15;
-                for(i=[-grid*8:12:grid*8]){        
+                for(i=[-grid*8:12:grid*8]){
                     translate([sz/2+i+70,sz/2+78,gauge/2]){
                         rotate([0,0,45]){
-                        cube([2,width*1.5,gauge],center=true);        
+                        cube([2,width*1.5,gauge],center=true);
                         }
                     }
                     translate([sz/2+i+70,sz/2+82,gauge/2]){
                         rotate([0,0,-45]){
-                            cube([2,width*1.5,gauge],center=true);        
+                            cube([2,width*1.5,gauge],center=true);
                         }
                     }
                 }
             }
             translate([15,15,-1]){cube([125,125,10]);}
         }
-    }    
+    }
 }
-
-
 
 module tophandle(){
     rotate([0,180,0]){
@@ -164,33 +154,28 @@ module tophandle(){
                         extrusion(4,false,false,false);
                     }
                 }
-            }    
-            wedge();            
+            }
+            wedge();
             translate([90,90,10]){
                 cube([200,200,20],center=true);
-            }       
+            }
             translate([10,10,0]){handlescrew();}
-            translate([sixinch-10,10,0]){handlescrew();}        
+            translate([sixinch-10,10,0]){handlescrew();}
         }
         intersection(){
             translate([0,0,-27.4]){
                 extrusion(11,false,false,false);
             }
-            wedge();        
-        } 
-    }    
+            wedge();
+        }
+    }
 }
-
-
-
 
 module handlescrew(){
     translate([0,0,-39]){cylinder(d=5,h=40); }
     translate([0,0,-4]){cylinder(d1=10,d2=6,h=3.5);}
     translate([0,0,-34]){cylinder(d=10,h=30);}
 }
-
-
 
 module wedge(){
     translate([sixinch/2,-10,15]){
@@ -208,9 +193,6 @@ module wedge(){
     }
 }
 
-
-
-
 module extrusion(u,center,front,side){
     len=unit*u;
     difference(){
@@ -219,32 +201,32 @@ module extrusion(u,center,front,side){
                 cube([len,16,16]);
                 sphere(d=4);
             }
-        } 
+        }
         translate([-5,10,1.99]){
             rotate([0,90,0]){linear_extrude(len+10){polygon(points=[[0,-2.5],[2,-4],[2,4],[0,2.5]]);}}
         }
         translate([-5,10,18.01]){
             rotate([0,-90,180]){linear_extrude(len+10){polygon(points=[[0,-2.5],[2,-4],[2,4],[0,2.5]]);}}
-        }    
+        }
         translate([-5,18.01,10]){
             rotate([90,0,90]){linear_extrude(len+10){polygon(points=[[0,-2.5],[2,-4],[2,4],[0,2.5]]);}}
-        }    
+        }
         translate([-5,1.99,10]){
             rotate([-90,0,-90]){linear_extrude(len+10){polygon(points=[[0,-2.5],[2,-4],[2,4],[0,2.5]]);}}
-        }    
+        }
         if(center){
             translate([-5,10,10]){
                 rotate([0,90,0]){
                     cylinder(d=4.6,h=len+10);
                 }
             }
-        }     
+        }
         //holes
         if(front){
             for(i=[0:30]){
                 translate([unit/2+i*unit,10,-5]){ cylinder(d=3.8,h=30);}
             }
-        }    
+        }
         if(side){
             for(i=[0:30]){
                 translate([unit/2+i*unit,25,10]){ rotate([90,0,0]){cylinder(d=3.8,h=30);}}
@@ -252,45 +234,37 @@ module extrusion(u,center,front,side){
         }
         //length cutoff
         translate([-2,0,0]){cube([4,60,60],center=true);}
-        translate([len+2,0,0]){cube([4,60,60],center=true);}    
+        translate([len+2,0,0]){cube([4,60,60],center=true);}
     }
 }
 
-
-
 module screw(){
     cylinder(r1=screw_head/2, r2=screw_dia/2, h=screw_head_height);
-    cylinder(r=screw_dia/2, h=40);    
-    translate([0,0,-0.99]){cylinder(r=screw_head/2, h=1);}    
+    cylinder(r=screw_dia/2, h=40);
+    translate([0,0,-0.99]){cylinder(r=screw_head/2, h=1);}
 }
-
-
 
 module insideprofile(l){
     difference(){
         union(){
             translate([7.6,10,0]){cube([4.8,10,l]);}
-            translate([0,7.6,0]){cube([20,4.8,l]);}  
-            
+            translate([0,7.6,0]){cube([20,4.8,l]);}
+
             translate([6.5,10-2.1,0]){cube([7   ,10,l]);}
-            translate([2.1,6.5,0]){cube([15.8,7   ,l]);}  
+            translate([2.1,6.5,0]){cube([15.8,7   ,l]);}
         }
         translate([4,4,-1]){
             cube([12,12,l+2]);
         }
-    } 
+    }
     translate([20,20,0]){
         rotate([0,-90,0]){
             linear_extrude(20){
                 polygon (points=[[0,0],[l,0],[0,l]]);
             }
         }
-    }    
+    }
 }
-
-
-
-
 
 module sidepanel(u,handle){
     difference(){
@@ -302,8 +276,6 @@ module sidepanel(u,handle){
         }
     }
 }
-
-
 
 module baseplate(u){
     difference(){
@@ -323,25 +295,6 @@ module baseplate(u){
         if(u>=5){
             translate([10-0.5,(u*unit)/2,-gauge/2])         {cylinder(r=2.3,gauge*2);}
             translate([sixinch-10+0.5,(u*unit)/2,-gauge/2]) {cylinder(r=2.3,gauge*2);}
-        }  
-    }    
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
